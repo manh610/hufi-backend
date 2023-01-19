@@ -1,6 +1,12 @@
 export interface IEvent {
     name: string
-    time: Date
+    timeStart: Date
+    timeEnd: Date
     address: string
     teacherId: string
+}
+
+export interface IReqGetEventInTime {
+    startTime: Date
+    endTime: Date
 }

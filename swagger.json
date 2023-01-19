@@ -49,6 +49,112 @@
 				],
 				"type": "object",
 				"additionalProperties": true
+			},
+			"IEvent": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"timeStart": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"timeEnd": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"address": {
+						"type": "string"
+					},
+					"teacherId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"timeStart",
+					"timeEnd",
+					"address",
+					"teacherId"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IReqGetEventInTime": {
+				"properties": {
+					"startTime": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endTime": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"startTime",
+					"endTime"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IStudent": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"dob": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"name",
+					"dob"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IStudentEvent": {
+				"properties": {
+					"mark": {
+						"type": "number",
+						"format": "double"
+					},
+					"trainingMarkId": {
+						"type": "string"
+					},
+					"studentId": {
+						"type": "string"
+					},
+					"eventId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"mark",
+					"trainingMarkId",
+					"studentId",
+					"eventId"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"ICheckStudentEvent": {
+				"properties": {
+					"studentId": {
+						"type": "string"
+					},
+					"eventId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"studentId",
+					"eventId"
+				],
+				"type": "object",
+				"additionalProperties": true
 			}
 		},
 		"securitySchemes": {
@@ -141,6 +247,191 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/ITeacherLogin"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/events": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Create Student",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IEvent"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/events/{eventId}": {
+			"get": {
+				"operationId": "GetEventById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "get event by id",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "eventId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/events/eventInTime": {
+			"post": {
+				"operationId": "GetEventInTime",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "get event in time",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IReqGetEventInTime"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/students": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Create Student",
+				"tags": [
+					"Students"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IStudent"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/studentEvents": {
+			"post": {
+				"operationId": "Create",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Create Student-Event",
+				"tags": [
+					"StudentEvents"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IStudentEvent"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/studentEvents/checkStudentEvent": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"description": "Check student - event",
+				"tags": [
+					"StudentEvents"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ICheckStudentEvent"
 							}
 						}
 					}

@@ -7,7 +7,8 @@ interface EventModel extends Model<EventDocument> { };
 
 const eventSchema = new mongoose.Schema<EventDocument, EventModel>({
     name: String,
-    time: Date,
+    timeStart: Date,
+    timeEnd: Date,
     address: String,
     teacherId : {
         type : mongoose.Types.ObjectId,
