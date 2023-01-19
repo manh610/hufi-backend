@@ -1,0 +1,26 @@
+
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "target": "es2019",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "baseUrl": "./",
+      "paths": {
+          "@components/*": ["src/components/*"],
+          "@routers/*": ["src/routers/*"],
+          "@utils/*": ["src/utils/*"],
+          "@middleware/*": ["src/middleware/*"],
+          "@type/*": ["src/types/*"],
+          "@services/*": ["src/services/*"],
+          "@root/*": ["src/*"],
+          "@seeder/*": ["src/seeder/*"]
+      },
+  },
+  "include": ["src/**/*", "authentication.ts"]
+}
