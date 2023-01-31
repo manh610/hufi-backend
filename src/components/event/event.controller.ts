@@ -1,8 +1,8 @@
 import { failedResponse, successResponse } from "../../utils/http";
-import { Controller, Route, Tags, Post, Body, Get } from "tsoa";
+import { Controller, Route, Tags, Post, Body, Get, Delete } from "tsoa";
 import { IEvent, IReqGetEventInTime } from "./event.types";
 import Event from "./event.model";
-import { getEventById, getEventInTimeQuery } from "./event.queries";
+import { getAllEvent, getEventById, getEventInTimeQuery } from "./event.queries";
 
 
 @Route('/events')
@@ -10,7 +10,7 @@ import { getEventById, getEventInTimeQuery } from "./event.queries";
 export class EventController extends Controller {
 
     /**
-     * Create Student
+     * Create event
      * @param data
      */
     @Post()
@@ -41,6 +41,17 @@ export class EventController extends Controller {
         }
     }
 
+    @Get('')
+    public async getAllEvent(): Promise<any> {
+        try {
+            const events = await Event.find({});
+            return successResponse(events);
+        } catch ( err ) {
+            this.setStatus(500);
+            return failedResponse(`${err}`, 'ServiceException');
+        }
+    }
+
     /**
      * get event in time
      */
@@ -59,6 +70,26 @@ export class EventController extends Controller {
         }
     }
 
+    @Delete('/{eventId}')
+    public async deleteTask(eventId: string): Promise<any>{
+        try{
+            if (await isExistEvents(eventId)) {
+                let res = await Event.findByIdAndDelete(eventId);
+                return successResponse(res);
+            }
+            this.setStatus(200);
+            return failedResponse('Event is not found', 'EventNotFound');
+        } catch (err) {
+            return failedResponse(`Error: ${err}`, 'ServiceException');
+        }
+    }
+
 }
 
 
+const isExistEvents = async (memberId: string): Promise<boolean> => {
+    const member = await Event.find({})
+            .where('_id').equals(memberId)
+            .exec();
+    return member.length > 0;
+}

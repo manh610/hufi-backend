@@ -7,6 +7,8 @@ interface StudentModel extends Model<StudentDocument> { };
 
 const studentSchema = new mongoose.Schema<StudentDocument, StudentModel>({
     name: String,
+    lop: String,
+    mssv: String,
     dob: Date
 });
 

@@ -106,11 +106,39 @@
 					"dob": {
 						"type": "string",
 						"format": "date-time"
+					},
+					"lop": {
+						"type": "string"
+					},
+					"mssv": {
+						"type": "string"
 					}
 				},
 				"required": [
 					"name",
-					"dob"
+					"dob",
+					"lop",
+					"mssv"
+				],
+				"type": "object",
+				"additionalProperties": true
+			},
+			"IUpdateMember": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"lop": {
+						"type": "string"
+					},
+					"mssv": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"lop",
+					"mssv"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -266,7 +294,7 @@
 						}
 					}
 				},
-				"description": "Create Student",
+				"description": "Create event",
 				"tags": [
 					"Events"
 				],
@@ -282,6 +310,24 @@
 						}
 					}
 				}
+			},
+			"get": {
+				"operationId": "GetAllEvent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": []
 			}
 		},
 		"/events/{eventId}": {
@@ -298,6 +344,33 @@
 					}
 				},
 				"description": "get event by id",
+				"tags": [
+					"Events"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "eventId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			},
+			"delete": {
+				"operationId": "DeleteTask",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
 				"tags": [
 					"Events"
 				],
@@ -370,6 +443,63 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/IStudent"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "GetAllEvent",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Students"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/students/{studentId}": {
+			"put": {
+				"operationId": "UpdateMember",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Students"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "studentId",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUpdateMember"
 							}
 						}
 					}
