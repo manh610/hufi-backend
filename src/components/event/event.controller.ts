@@ -63,7 +63,7 @@ export class EventController extends Controller {
                 this.setStatus(404);
                 return failedResponse('Event is not found', 'EventNotFound');
             }
-            return successResponse(events[0]);
+            return successResponse(events);
         } catch ( err ) {
             this.setStatus(500);
             return failedResponse(`${err}`, 'ServiceException');

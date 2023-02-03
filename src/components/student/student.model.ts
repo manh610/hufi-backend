@@ -9,7 +9,11 @@ const studentSchema = new mongoose.Schema<StudentDocument, StudentModel>({
     name: String,
     lop: String,
     mssv: String,
-    dob: Date
+    dob: Date,
+    plus: {
+        type: Number,
+        default: 0
+    }
 });
 
 studentSchema.set('toJSON', {

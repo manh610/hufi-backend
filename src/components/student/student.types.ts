@@ -3,6 +3,7 @@ export interface IStudent {
     dob: Date
     lop: String
     mssv: String
+    plus: number
 }
 
 

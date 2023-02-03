@@ -6,7 +6,6 @@ interface StudentEventDocument extends IStudentEvent, Document { };
 interface StudentEventModel extends Model<StudentEventDocument> { };
 
 const studentEventSchema = new mongoose.Schema<StudentEventDocument, StudentEventModel>({
-    mark: Number,
     eventId : {
         type : mongoose.Types.ObjectId,
         ref : 'Event',
@@ -17,11 +16,6 @@ const studentEventSchema = new mongoose.Schema<StudentEventDocument, StudentEven
         ref : 'Student',
         require : true
     },
-    traningMarkId : {
-        type : mongoose.Types.ObjectId,
-        ref : 'TrainingMark',
-        require : true
-    }
 });
 
 studentEventSchema.set('toJSON', {

@@ -68,6 +68,7 @@ const models: TsoaRoute.Models = {
             "dob": {"dataType":"datetime","required":true},
             "lop": {"dataType":"string","required":true},
             "mssv": {"dataType":"string","required":true},
+            "plus": {"dataType":"double","required":true},
         },
         "additionalProperties": true,
     },
@@ -82,22 +83,11 @@ const models: TsoaRoute.Models = {
         "additionalProperties": true,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "IStudentEvent": {
+    "ICheckStudentEventReq": {
         "dataType": "refObject",
         "properties": {
-            "mark": {"dataType":"double","required":true},
-            "trainingMarkId": {"dataType":"string","required":true},
-            "studentId": {"dataType":"string","required":true},
-            "eventId": {"dataType":"string","required":true},
-        },
-        "additionalProperties": true,
-    },
-    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ICheckStudentEvent": {
-        "dataType": "refObject",
-        "properties": {
-            "studentId": {"dataType":"string","required":true},
-            "eventId": {"dataType":"string","required":true},
+            "studentMSSV": {"dataType":"string","required":true},
+            "eventName": {"dataType":"string","required":true},
         },
         "additionalProperties": true,
     },
@@ -367,7 +357,7 @@ export function RegisterRoutes(app: express.Router) {
 
             function StudentEventController_create(request: any, response: any, next: any) {
             const args = {
-                    data: {"in":"body","name":"data","required":true,"ref":"IStudentEvent"},
+                    input: {"in":"body","name":"input","required":true,"ref":"ICheckStudentEventReq"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -392,7 +382,7 @@ export function RegisterRoutes(app: express.Router) {
 
             function StudentEventController_login(request: any, response: any, next: any) {
             const args = {
-                    data: {"in":"body","name":"data","required":true,"ref":"ICheckStudentEvent"},
+                    input: {"in":"body","name":"input","required":true,"ref":"ICheckStudentEventReq"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

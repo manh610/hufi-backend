@@ -112,13 +112,18 @@
 					},
 					"mssv": {
 						"type": "string"
+					},
+					"plus": {
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
 					"name",
 					"dob",
 					"lop",
-					"mssv"
+					"mssv",
+					"plus"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -143,43 +148,18 @@
 				"type": "object",
 				"additionalProperties": true
 			},
-			"IStudentEvent": {
+			"ICheckStudentEventReq": {
 				"properties": {
-					"mark": {
-						"type": "number",
-						"format": "double"
-					},
-					"trainingMarkId": {
+					"studentMSSV": {
 						"type": "string"
 					},
-					"studentId": {
-						"type": "string"
-					},
-					"eventId": {
+					"eventName": {
 						"type": "string"
 					}
 				},
 				"required": [
-					"mark",
-					"trainingMarkId",
-					"studentId",
-					"eventId"
-				],
-				"type": "object",
-				"additionalProperties": true
-			},
-			"ICheckStudentEvent": {
-				"properties": {
-					"studentId": {
-						"type": "string"
-					},
-					"eventId": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"studentId",
-					"eventId"
+					"studentMSSV",
+					"eventName"
 				],
 				"type": "object",
 				"additionalProperties": true
@@ -530,7 +510,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/IStudentEvent"
+								"$ref": "#/components/schemas/ICheckStudentEventReq"
 							}
 						}
 					}
@@ -561,7 +541,7 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/ICheckStudentEvent"
+								"$ref": "#/components/schemas/ICheckStudentEventReq"
 							}
 						}
 					}

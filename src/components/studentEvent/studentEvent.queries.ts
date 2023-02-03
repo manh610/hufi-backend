@@ -1,10 +1,12 @@
 import { ICheckStudentEvent } from "./studentEvent.types";
 
+import mongoose from "mongoose";
+
 export const checkQuery = (data: ICheckStudentEvent): any => [
     {
         $match: {
-            studentId: {$eq: data.studentId},
-            eventId: {$eq: data.eventId}
+            studentId: {$eq: mongoose.Types.ObjectId(data.studentId)},
+            eventId: {$eq:  mongoose.Types.ObjectId(data.eventId)}
         }
     },
     {

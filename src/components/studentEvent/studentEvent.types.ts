@@ -1,6 +1,4 @@
 export interface IStudentEvent {
-    mark: number
-    trainingMarkId: string
     studentId: string
     eventId: string
 }
@@ -8,4 +6,10 @@ export interface IStudentEvent {
 export interface ICheckStudentEvent {
     studentId: string
     eventId: string
+}
+
+
+export interface ICheckStudentEventReq {
+    studentMSSV: string
+    eventName: string
 }
