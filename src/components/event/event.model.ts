@@ -10,6 +10,7 @@ const eventSchema = new mongoose.Schema<EventDocument, EventModel>({
     timeStart: Date,
     timeEnd: Date,
     address: String,
+    plus: Number,
     teacherId : {
         type : mongoose.Types.ObjectId,
         ref : 'Teacher',

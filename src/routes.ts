@@ -47,6 +47,7 @@ const models: TsoaRoute.Models = {
             "timeStart": {"dataType":"datetime","required":true},
             "timeEnd": {"dataType":"datetime","required":true},
             "address": {"dataType":"string","required":true},
+            "plus": {"dataType":"double","required":true},
             "teacherId": {"dataType":"string","required":true},
         },
         "additionalProperties": true,
@@ -303,9 +304,9 @@ export function RegisterRoutes(app: express.Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/students',
             ...(fetchMiddlewares<RequestHandler>(StudentController)),
-            ...(fetchMiddlewares<RequestHandler>(StudentController.prototype.getAllEvent)),
+            ...(fetchMiddlewares<RequestHandler>(StudentController.prototype.getAllStudent)),
 
-            function StudentController_getAllEvent(request: any, response: any, next: any) {
+            function StudentController_getAllStudent(request: any, response: any, next: any) {
             const args = {
             };
 
@@ -318,7 +319,7 @@ export function RegisterRoutes(app: express.Router) {
                 const controller = new StudentController();
 
 
-              const promise = controller.getAllEvent.apply(controller, validatedArgs as any);
+              const promise = controller.getAllStudent.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
@@ -378,9 +379,9 @@ export function RegisterRoutes(app: express.Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/studentEvents/checkStudentEvent',
             ...(fetchMiddlewares<RequestHandler>(StudentEventController)),
-            ...(fetchMiddlewares<RequestHandler>(StudentEventController.prototype.login)),
+            ...(fetchMiddlewares<RequestHandler>(StudentEventController.prototype.check)),
 
-            function StudentEventController_login(request: any, response: any, next: any) {
+            function StudentEventController_check(request: any, response: any, next: any) {
             const args = {
                     input: {"in":"body","name":"input","required":true,"ref":"ICheckStudentEventReq"},
             };
@@ -394,7 +395,57 @@ export function RegisterRoutes(app: express.Router) {
                 const controller = new StudentEventController();
 
 
-              const promise = controller.login.apply(controller, validatedArgs as any);
+              const promise = controller.check.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/studentEvents/event/:eventId',
+            ...(fetchMiddlewares<RequestHandler>(StudentEventController)),
+            ...(fetchMiddlewares<RequestHandler>(StudentEventController.prototype.getStudentByEventId)),
+
+            function StudentEventController_getStudentByEventId(request: any, response: any, next: any) {
+            const args = {
+                    eventId: {"in":"path","name":"eventId","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new StudentEventController();
+
+
+              const promise = controller.getStudentByEventId.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.get('/studentEvents/student/:studentId',
+            ...(fetchMiddlewares<RequestHandler>(StudentEventController)),
+            ...(fetchMiddlewares<RequestHandler>(StudentEventController.prototype.getEventByStuddentId)),
+
+            function StudentEventController_getEventByStuddentId(request: any, response: any, next: any) {
+            const args = {
+                    studentId: {"in":"path","name":"studentId","required":true,"dataType":"string"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new StudentEventController();
+
+
+              const promise = controller.getEventByStuddentId.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);

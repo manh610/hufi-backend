@@ -23,7 +23,7 @@ export class StudentController extends Controller {
     }
 
     @Get('')
-    public async getAllEvent(): Promise<any> {
+    public async getAllStudent(): Promise<any> {
         try {
             const students = await Student.find({});
             return successResponse(students);

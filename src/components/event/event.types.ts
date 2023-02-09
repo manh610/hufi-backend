@@ -3,6 +3,7 @@ export interface IEvent {
     timeStart: Date
     timeEnd: Date
     address: string
+    plus: number
     teacherId: string
 }
 
