@@ -1,6 +1,7 @@
 export interface IStudentEvent {
     studentId: string
     eventId: string
+    check?: number
 }
 
 export interface ICheckStudentEvent {

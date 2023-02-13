@@ -16,6 +16,10 @@ const studentEventSchema = new mongoose.Schema<StudentEventDocument, StudentEven
         ref : 'Student',
         require : true
     },
+    check: {
+        type: Number,
+        default: 0
+    }
 });
 
 studentEventSchema.set('toJSON', {

@@ -61,7 +61,8 @@ export const getStudentByEventIdQueries = (eventId: string): any => [
             _id: 0,
             id: '$_id',
             student: '$student',
-            eventId: 1
+            eventId: 1,
+            check: 1
         }
     }
 ]
@@ -108,7 +109,8 @@ export const getEventBtStudentIdQueries = (studentId: string): any => [
             _id: 0,
             id: '$_id',
             event: '$event',
-            studentId: 1
+            studentId: 1,
+            check: 1
         }
     }
 ]

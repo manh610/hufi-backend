@@ -1,5 +1,5 @@
 import { failedResponse, successResponse } from "../../utils/http";
-import { Controller, Route, Tags, Post, Body, Get } from "tsoa";
+import { Controller, Route, Tags, Post, Body, Get, Put } from "tsoa";
 import { ICheckStudentEvent, ICheckStudentEventReq, IStudentEvent } from "./studentEvent.types";
 import StudentEvent from "./studentEvent.model";
 import Student from '../student/student.model';
@@ -24,9 +24,6 @@ export class StudentEventController extends Controller {
                 studentId: students[0].id
             }
             await new StudentEvent(data).save();
-            const student = await Student.findById(data.studentId);
-            const event = await Event.findById(data.eventId);
-            await Student.findByIdAndUpdate(data.studentId, {plus: student.plus + event.plus})
             return successResponse('insertSuccess');
         } catch (err) {
             return failedResponse(`Error: ${err}`, 'ServiceException');
@@ -39,7 +36,7 @@ export class StudentEventController extends Controller {
      * @returns 
      */
     @Post('checkStudentEvent')
-    public async check(@Body() input: ICheckStudentEventReq): Promise<any> {
+    public async check1(@Body() input: ICheckStudentEventReq): Promise<any> {
         try {
             const student = await Student.find({mssv: input.studentMSSV});
             const event = await Event.find({name: input.eventName});
@@ -51,10 +48,13 @@ export class StudentEventController extends Controller {
             console.log(res);   
             if ( res.length==0 ) {
                 this.setStatus(200);
-                return successResponse('Bạn chưa điểm danh');
+                return successResponse('Bạn chưa đăng kí tham gia sự kiện này');
             }
             this.setStatus(200);
-            return successResponse('Bạn đã hoàn thành điểm danh');
+            if ( res[0].check==1)
+                return successResponse('Bạn đã hoàn thành điểm danh');
+            if ( res[0].check==0)
+                return successResponse('Bạn chưa hoàn thành điểm danh');
         } catch( error ) {
             this.setStatus(500);
             return failedResponse(`Caught error ${error}`, 'ServiceException');
@@ -88,6 +88,27 @@ export class StudentEventController extends Controller {
         } catch( error ) {
             this.setStatus(500);
             return failedResponse(`Caught error ${error}`, 'ServiceException');
+        }
+    }
+
+    @Put('check')
+    public async check(@Body() input: ICheckStudentEventReq): Promise<any>{
+        try{
+            const students = await Student.find({mssv: input.studentMSSV});
+            const events = await Event.find({name: input.eventName});
+            const data : ICheckStudentEvent = {
+                eventId: events[0].id,
+                studentId: students[0].id
+            }
+            const studentEvent = await StudentEvent.find({eventId: data.eventId, studentId: data.studentId});
+            await StudentEvent.findOneAndUpdate({eventId: data.eventId, studentId: data.studentId}, {check: 1});
+            const student = await Student.findById(data.studentId);
+            const event = await Event.findById(data.eventId);
+            if ( studentEvent[0].check == 0)
+                await Student.findByIdAndUpdate(data.studentId, {plus: student.plus + event.plus})
+            return successResponse('insertSuccess');
+        } catch (err) {
+            return failedResponse(`Error: ${err}`, 'ServiceException');
         }
     }
 

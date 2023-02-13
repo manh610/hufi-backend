@@ -379,9 +379,9 @@ export function RegisterRoutes(app: express.Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/studentEvents/checkStudentEvent',
             ...(fetchMiddlewares<RequestHandler>(StudentEventController)),
-            ...(fetchMiddlewares<RequestHandler>(StudentEventController.prototype.check)),
+            ...(fetchMiddlewares<RequestHandler>(StudentEventController.prototype.check1)),
 
-            function StudentEventController_check(request: any, response: any, next: any) {
+            function StudentEventController_check1(request: any, response: any, next: any) {
             const args = {
                     input: {"in":"body","name":"input","required":true,"ref":"ICheckStudentEventReq"},
             };
@@ -395,7 +395,7 @@ export function RegisterRoutes(app: express.Router) {
                 const controller = new StudentEventController();
 
 
-              const promise = controller.check.apply(controller, validatedArgs as any);
+              const promise = controller.check1.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
@@ -446,6 +446,31 @@ export function RegisterRoutes(app: express.Router) {
 
 
               const promise = controller.getEventByStuddentId.apply(controller, validatedArgs as any);
+              promiseHandler(controller, promise, response, undefined, next);
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        app.put('/studentEvents/check',
+            ...(fetchMiddlewares<RequestHandler>(StudentEventController)),
+            ...(fetchMiddlewares<RequestHandler>(StudentEventController.prototype.check)),
+
+            function StudentEventController_check(request: any, response: any, next: any) {
+            const args = {
+                    input: {"in":"body","name":"input","required":true,"ref":"ICheckStudentEventReq"},
+            };
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = getValidatedArgs(args, request, response);
+
+                const controller = new StudentEventController();
+
+
+              const promise = controller.check.apply(controller, validatedArgs as any);
               promiseHandler(controller, promise, response, undefined, next);
             } catch (err) {
                 return next(err);
