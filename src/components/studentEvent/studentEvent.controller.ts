@@ -1,5 +1,5 @@
 import { failedResponse, successResponse } from "../../utils/http";
-import { Controller, Route, Tags, Post, Body, Get, Put } from "tsoa";
+import { Controller, Route, Tags, Post, Body, Get, Put, Delete } from "tsoa";
 import { ICheckStudentEvent, ICheckStudentEventReq, IStudentEvent } from "./studentEvent.types";
 import StudentEvent from "./studentEvent.model";
 import Student from '../student/student.model';
@@ -106,7 +106,28 @@ export class StudentEventController extends Controller {
             const event = await Event.findById(data.eventId);
             if ( studentEvent[0].check == 0)
                 await Student.findByIdAndUpdate(data.studentId, {plus: student.plus + event.plus})
-            return successResponse('insertSuccess');
+            return successResponse('updateSuccess');
+        } catch (err) {
+            return failedResponse(`Error: ${err}`, 'ServiceException');
+        }
+    }
+
+    @Delete('delete')
+    public async delete(@Body() input: ICheckStudentEventReq): Promise<any>{
+        try{
+            const students = await Student.find({mssv: input.studentMSSV});
+            const events = await Event.find({name: input.eventName});
+            const data : ICheckStudentEvent = {
+                eventId: events[0].id,
+                studentId: students[0].id
+            }
+            const studentEvent = await StudentEvent.find({eventId: data.eventId, studentId: data.studentId});
+            await StudentEvent.findOneAndDelete({eventId: data.eventId, studentId: data.studentId});
+            const student = await Student.findById(data.studentId);
+            const event = await Event.findById(data.eventId);
+            if ( studentEvent[0].check == 1)
+                await Student.findByIdAndUpdate(data.studentId, {plus: student.plus - event.plus})
+            return successResponse('deleteSuccess');
         } catch (err) {
             return failedResponse(`Error: ${err}`, 'ServiceException');
         }
